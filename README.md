@@ -6,6 +6,13 @@
 
 binance官方文档网页上的sdk太臃肿复杂，而且难以使用
 
+## python配置代理
+```python
+import os
+os.environ["http_proxy"] = "http://127.0.0.1:7890"
+os.environ["https_proxy"] = "http://127.0.0.1:7890"
+```
+
 ## 主要参数
 
 ##### Binanceapi类
