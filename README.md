@@ -6,6 +6,11 @@
 
 binance官方文档网页上的sdk太臃肿复杂，而且难以使用
 
+## binance文档
+
+https://binance-docs.github.io/apidocs/futures/cn
+
+
 ## python配置代理
 ```python
 import os
