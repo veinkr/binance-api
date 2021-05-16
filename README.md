@@ -10,10 +10,11 @@ binance官方文档网页上的sdk太臃肿复杂，而且难以使用
 
 https://binance-docs.github.io/apidocs/futures/cn
 
-
 ## python配置代理
+
 ```python
 import os
+
 os.environ["http_proxy"] = "http://127.0.0.1:7890"
 os.environ["https_proxy"] = "http://127.0.0.1:7890"
 ```
@@ -40,7 +41,36 @@ notime: bool = False # 部分api不需要recvWindow和timestamp参数，如"/api
 
 ## 用法
 
-可直接参考example.py
+### 构建一个get_data
+
+以`GET /fapi/v1/continuousKlines`为例
+
+**参数:**
+
+| 名称         | 类型   | 是否必需 | 描述                   |
+| :----------- | :----- | :------- | :--------------------- |
+| pair         | STRING | YES      | 标的交易对             |
+| contractType | ENUM   | YES      | 合约类型               |
+| interval     | ENUM   | YES      | 时间间隔               |
+| startTime    | LONG   | NO       | 起始时间               |
+| endTime      | LONG   | NO       | 结束时间               |
+| limit        | INT    | NO       | 默认值:500 最大值:1500 |
+
+则get_data函数为
+
+```python
+from binance_api import *
+
+binance = Binanceapi(api_keys=api_key, secret_key=api_secret, host='https://fapi.binance.com')
+binance.get_data(api="/fapi/v1/continuousKlines",  # api的url路径
+                 method='GET',  # api的请求方式
+                 sign=False,  # 不需要计算sha256签名
+                 pair='ETHUSDT',  # 参数
+                 contractType='PERPETUAL',  # 参数
+                 interval='1m',  # 参数
+                 limit=100  # 参数
+                 )
+```
 
 ### 合约
 
@@ -71,4 +101,6 @@ ret = binance_d.get_data(api="/sapi/v1/mining/pub/coinList",
 print(ret.status_code)
 print(ret.text)
 ```
+
+
 
